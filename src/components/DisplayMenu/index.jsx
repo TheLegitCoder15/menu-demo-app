@@ -67,14 +67,15 @@ const DisplayMenu = ({
                 raised
                 sx={{
                   display: "flex",
-                  flexDirection: "column",
                   backgroundColor: "",
                   maxWidth: 345,
+                  minWidth: 200,
+                  flexBasis: 180,
                   flex: 1,
-                  height: "fit-content",
                 }}
               >
                 <CardActionArea
+                  sx={{ height: "100%" }}
                   onClick={() => {
                     handleCardSelect(item);
                   }}
