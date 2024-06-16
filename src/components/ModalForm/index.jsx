@@ -62,7 +62,7 @@ const ModalForm = ({
     if (checked) {
       tempAddOption.push({
         field: "",
-        options: [],
+        value: 0,
         isChecked: false,
       });
     } else {
@@ -76,12 +76,14 @@ const ModalForm = ({
     const { name, value } = e.target;
     const tempAddOption = inputField.additionalOption;
 
-    if (name === "options") {
-      let tempValue = value.split(",");
-      tempAddOption[index][name] = tempValue;
-    } else {
-      tempAddOption[index][name] = value;
-    }
+    // if (name === "options") {
+    //   let tempValue = value.split(",");
+    //   tempAddOption[index][name] = tempValue;
+    // } else {
+    //   tempAddOption[index][name] = value;
+    // }
+
+    tempAddOption[index][name] = value;
 
     setInputField({ ...inputField, additionalOption: tempAddOption });
   };
@@ -107,7 +109,9 @@ const ModalForm = ({
     >
       <Box className="form-container" component={"form"}>
         <Box className="form-header">
-          <Typography variant="h6">Add Menu</Typography>
+          <Typography variant="h6">
+            {editMenu ? "Edit Menu" : "Add Menu"}
+          </Typography>
           <IconButton
             className="form-header-close"
             aria-label="close"
@@ -156,6 +160,7 @@ const ModalForm = ({
             inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             value={inputField.price}
             onChange={handleInputChange}
+            disabled={inputField.additionalOption[0].isChecked}
           />
         </FormControl>
         <FormControl className="cost-field">
@@ -200,7 +205,7 @@ const ModalForm = ({
               <>
                 <FormControl className="additional-field-name">
                   <TextField
-                    placeholder="Put Field Name (e.g. Size)"
+                    placeholder="Option"
                     name="field"
                     value={checkbox.field}
                     onChange={(e) => {
@@ -209,10 +214,21 @@ const ModalForm = ({
                   />
                 </FormControl>
                 <FormControl className="additional-field-value">
-                  <TextField
+                  {/* <TextField
                     placeholder="Format(Small,Medium,Large)"
                     name="options"
                     value={checkbox.options}
+                    onChange={(e) => {
+                      handleCheckBoxFields(e, index);
+                    }}
+                  /> */}
+                  <TextField
+                    name="value"
+                    variant="outlined"
+                    label="Price"
+                    onKeyDown={handleKeyDown}
+                    inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                    value={checkbox.value}
                     onChange={(e) => {
                       handleCheckBoxFields(e, index);
                     }}

@@ -42,14 +42,6 @@ const DisplayMenu = ({
     let finalItem = item;
     finalItem.additionalOption = Object.values(item.additionalOption);
 
-    Object.values(item.additionalOption).forEach((value, index) => {
-      if (value.isChecked == true) {
-        finalItem.additionalOption[index].options = Object.values(
-          value.options
-        );
-      }
-    });
-
     setOpenModal(true);
     setEditMenu(true);
     setInputField({ ...finalItem });
@@ -79,6 +71,7 @@ const DisplayMenu = ({
                   backgroundColor: "",
                   maxWidth: 345,
                   flex: 1,
+                  height: "fit-content",
                 }}
               >
                 <CardActionArea
@@ -93,9 +86,33 @@ const DisplayMenu = ({
                   <CardContent
                     sx={{ display: "flex", flexWrap: "wrap", rowGap: "10px" }}
                   >
-                    <Typography variant="h6" width={1}>
+                    {/* <Typography variant="h6" width={1}>
                       ₱{item.price}
-                    </Typography>
+                    </Typography> */}
+                    {item.additionalOption[0].isChecked ? (
+                      <Box
+                        display="flex"
+                        width={1}
+                        justifyContent="space-between"
+                      >
+                        {Object.values(item.additionalOption).map((option) =>
+                          option.isChecked ? (
+                            <Box key={Object.values(option)}>
+                              <Typography variant="body1" width={1}>
+                                {option.field}
+                              </Typography>
+                              <Typography sx={{ fontWeight: "bold" }}>
+                                ₱{option.value}
+                              </Typography>
+                            </Box>
+                          ) : null
+                        )}
+                      </Box>
+                    ) : (
+                      <Typography variant="h6" width={1}>
+                        ₱{item.price}
+                      </Typography>
+                    )}
                     <Typography variant="body2" width={0.5}>
                       Cost: ₱{item.cost}
                     </Typography>

@@ -13,7 +13,7 @@ function App() {
     price: 0,
     cost: 0,
     stocks: 0,
-    additionalOption: [{ field: "", options: [], isChecked: false }],
+    additionalOption: [{ field: "", value: 0, isChecked: false }],
   };
   // FORM HOOKS
   const [inputField, setInputField] = useState(initialInputField);
